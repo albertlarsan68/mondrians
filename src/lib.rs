@@ -166,7 +166,7 @@ fn generate_part_on_y(
     max_middle: u32,
     colors: &[Color],
 ) {
-    if rng.gen_ratio(1, max_depth + 2) || max_depth == 0 {
+    if rng.gen_ratio(1, max_depth + 5) || max_depth == 0 {
         canvas.paint(x_range, y_range, colors[rng.gen_range(0..colors.len())]);
         return;
     }
@@ -218,7 +218,7 @@ fn generate_part_on_x(
     max_middle: u32,
     colors: &[Color],
 ) {
-    if rng.gen_ratio(1, max_depth + 2) || max_depth == 0 {
+    if rng.gen_ratio(1, max_depth + 5) || max_depth == 0 {
         canvas.paint(x_range, y_range, colors[rng.gen_range(0..colors.len())]);
         return;
     }
