@@ -19,7 +19,7 @@ function workerOnError(error) {
     toGenerate = null;
     generating = false;
     worker.terminate();
-    setTimeout(() => { worker = new Worker("worker.js"); worker.onerror = workerOnError; worker.onmessage = workerOnMessage; erroring = false; }, 1);
+    setTimeout(() => { worker = new Worker("worker.js", {type: "module"}); worker.onerror = workerOnError; worker.onmessage = workerOnMessage; erroring = false; }, 1);
     throw error;
 }
 

@@ -1,5 +1,7 @@
-wasm-pack build --target no-modules --no-typescript --release
-mkdir deploy
+cargo install wasm-pack
+wasm-pack build --target web --no-typescript --release
+mkdir deploy || true
+rm -rf deploy/* 
 HASH=$(git rev-parse --short HEAD)
 mkdir deploy/$HASH
 cp pkg/mondrians.js pkg/mondrians_bg.wasm deploy/$HASH
