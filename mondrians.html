@@ -38,13 +38,14 @@
     status.disabled = true;
     status.value = "Chargement en cours...";
 
-    const worker = new Worker("worker.js");
+    var worker = new Worker("worker.js");
 
     worker.onerror = (error) => {
       console.log(`Worker error: ${error.message}`);
-      status.disabled = true;
-      status.value = "Erreur lors de la génération, rechargement ...";
-      worker.postMessage({ reInit: true});
+      status.disabled = false;
+      status.value = "Erreur lors de la génération, modifiez les paramètres et réessayez";
+      worker.terminate();
+      worker = new Worker("worker.js");
       throw error;
     };
 
