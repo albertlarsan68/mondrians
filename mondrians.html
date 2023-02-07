@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="mondrians.css">
+  <title>Mondrian</title>
+</head>
+
+<body>
+  <form>
+    <label for="seed">Graine: </label><input type="text" name="seed" id="seed"><br>
+    <label for="width">Largeur: </label><input type="number" name="width" id="width" min="10" max="5000"
+      value="1920"><br>
+    <label for="height">Hauteur: </label><input type="number" name="height" id="height" min="10" max="5000"
+      value="1080"><br>
+    <label for="sep-width">Largeur des séparateurs</label><input type="number" name="sep-width" id="sep-width" min="1"
+      max="100" value="5"><br>
+    <label for="max-depth">Profondeur maximale</label><input type="number" name="max-depth" id="max-depth" min="1"
+      max="10" value="5"><br>
+    <label for="min-middle">Millieu minimum</label><input type="number" name="min-middle" id="min-middle" min="1"
+      max="100" value="20"><br>
+    <label for="max-middle">Millieu maximum</label><input type="number" name="max-middle" id="max-middle" min="1"
+      max="100" value="80"><br>
+    <input type="submit" value="Générer" id="generate">
+  </form>
+
+  <img id="output" alt="Tableau généré dans le style de Mondrian" hidden></img>
+
+
+  <script>
+    const form = document.querySelector("form");
+    const output = document.querySelector("img#output");
+    const status = document.querySelector("input#generate");
+    var generating = false;
+    var toGenerate = null;
+    status.disabled = true;
+    status.value = "Chargement en cours...";
+
+    const worker = new Worker("worker.js");
+
+    worker.onerror = (error) => {
+      console.log(`Worker error: ${error.message}`);
+      throw error;
+    };
+
+    worker.onmessage = (event) => {
+      if (toGenerate != null) {
+        worker.postMessage(toGenerate);
+        toGenerate = null;
+      } else {
+        generating = false;
+        status.disabled = false;
+        status.value = "Générer";
+      }
+      output.src = ("data:image/png;base64," + event.data.data);
+      output.hidden = false;
+    };
+
+    form.onsubmit = (e) => {
+      e.preventDefault();
+      main();
+    }
+
+    form.oninput = (e) => {
+      main();
+    };
+
+    function generate(seed, width, height, max_depth, sep_width, min_middle, max_middle) {
+      if (generating) {
+        toGenerate = { seed: seed, width: width, height: height, max_depth: max_depth, sep_width: sep_width, min_middle: min_middle, max_middle: max_middle };
+      } else {
+        worker.postMessage({ seed: seed, width: width, height: height, max_depth: max_depth, sep_width: sep_width, min_middle: min_middle, max_middle: max_middle });
+        generating = true;
+      }
+
+    }
+
+    function main() {
+      status.disabled = true;
+      status.value = "Génération en cours...";
+      generate(Uint8Array.from(document.getElementById("seed").value), Number.parseInt(document.getElementById("width").value), Number.parseInt(document.getElementById("height").value), Number.parseInt(document.getElementById("max-depth").value), Number.parseInt(document.getElementById("sep-width").value), Number.parseInt(document.getElementById("min-middle").value), Number.parseInt(document.getElementById("max-middle").value));
+    }
+
+    main()
+
+  </script>
+</body>
+
+</html>

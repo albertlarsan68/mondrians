@@ -1,0 +1,20 @@
+body {
+    height: 90vh;
+    width: 90vw;
+    max-height: 90vw;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+}
+
+form {
+    flex: none;
+}
+
+#output {
+    object-fit: contain;
+    flex-grow: 1;
+    min-width: 0px;
+    min-height: 0px;
+}
