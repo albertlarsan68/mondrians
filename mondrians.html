@@ -15,13 +15,13 @@
       value="1920"><br>
     <label for="height">Hauteur: </label><input type="number" name="height" id="height" min="10" max="5000"
       value="1080"><br>
-    <label for="sep-width">Largeur des séparateurs</label><input type="number" name="sep-width" id="sep-width" min="1"
+    <label for="sep-width">Largeur des séparateurs: </label><input type="number" name="sep-width" id="sep-width" min="1"
       max="100" value="5"><br>
-    <label for="max-depth">Profondeur maximale</label><input type="number" name="max-depth" id="max-depth" min="1"
+    <label for="max-depth">Profondeur maximale: </label><input type="number" name="max-depth" id="max-depth" min="1"
       max="10" value="5"><br>
-    <label for="min-middle">Millieu minimum</label><input type="number" name="min-middle" id="min-middle" min="1"
+    <label for="min-middle">Millieu minimum: </label><input type="number" name="min-middle" id="min-middle" min="1"
       max="100" value="20"><br>
-    <label for="max-middle">Millieu maximum</label><input type="number" name="max-middle" id="max-middle" min="1"
+    <label for="max-middle">Millieu maximum: </label><input type="number" name="max-middle" id="max-middle" min="1"
       max="100" value="80"><br>
     <input type="submit" value="Générer" id="generate">
   </form>
@@ -42,6 +42,9 @@
 
     worker.onerror = (error) => {
       console.log(`Worker error: ${error.message}`);
+      status.disabled = true;
+      status.value = "Erreur lors de la génération, rechargement de la page...";
+      setTimeout(() => {document.location = document.location;}, 10000);
       throw error;
     };
 
