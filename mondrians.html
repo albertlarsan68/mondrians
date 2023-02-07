@@ -47,7 +47,7 @@
       status.value = "Erreur lors de la génération, modifiez les paramètres et réessayez";
       erroring = true;
       worker.terminate();
-      setTimeout(() => {worker = new Worker("worker.js"); worker.onerror = workerOnError; worker.onmessage = workeronmessage; erroring = false;}, 1);
+      setTimeout(() => {worker = new Worker("worker.js"); worker.onerror = workerOnError; worker.onmessage = workerOnMessage; erroring = false;}, 1);
       throw error;
     }
 
@@ -65,7 +65,7 @@
     };
     
     worker.onerror = workerOnError;
-    worker.onmessage = workeronmessage;
+    worker.onmessage = workerOnMessage;
 
     form.onsubmit = (e) => {
       e.preventDefault();
