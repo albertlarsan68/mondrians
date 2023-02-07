@@ -31,6 +31,10 @@ jobs:
         with:
           toolchain: beta
           default: true
+      - name: Install Wasm-Pack
+        uses: taiki-e/install-action@v2
+        with:
+          tool: wasm-pack
       - name: Setup Pages
         uses: actions/configure-pages@v3
       - name: Build with Rust
