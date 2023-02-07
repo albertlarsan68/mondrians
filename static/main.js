@@ -9,7 +9,7 @@ var erroring = false;
 submitButton.disabled = true;
 submitButton.value = "Chargement en cours...";
 
-var worker = new Worker("worker.js");
+var worker = new Worker("{hash}/worker.js");
 
 function workerOnError(error) {
     console.log(`Worker error: ${error.message}`);
