@@ -35,21 +35,23 @@
     const status = document.querySelector("input#generate");
     var generating = false;
     var toGenerate = null;
+    var erroring = false;
     status.disabled = true;
     status.value = "Chargement en cours...";
 
     var worker = new Worker("worker.js");
 
-    worker.onerror = (error) => {
+    function workerOnError(error) {
       console.log(`Worker error: ${error.message}`);
       status.disabled = false;
       status.value = "Erreur lors de la génération, modifiez les paramètres et réessayez";
+      erroring = true;
       worker.terminate();
-      worker = new Worker("worker.js");
+      setTimeout(() => {worker = new Worker("worker.js"); worker.onerror = workerOnError; worker.onmessage = workeronmessage; erroring = false;}, 1);
       throw error;
-    };
+    }
 
-    worker.onmessage = (event) => {
+    function workerOnMessage(event) {
       if (toGenerate != null) {
         worker.postMessage(toGenerate);
         toGenerate = null;
@@ -61,6 +63,9 @@
       output.src = ("data:image/png;base64," + event.data.data);
       output.hidden = false;
     };
+    
+    worker.onerror = workerOnError;
+    worker.onmessage = workeronmessage;
 
     form.onsubmit = (e) => {
       e.preventDefault();
@@ -84,6 +89,9 @@
     function main() {
       if (!form.checkValidity()) {
         return;
+      }
+      if (erroring) {
+        setTimeout(main, 10);
       }
       status.disabled = true;
       status.value = "Génération en cours...";
