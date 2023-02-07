@@ -127,7 +127,7 @@ function initSync(module) {
 
 async function init(input) {
     if (typeof input === 'undefined') {
-        input = new URL('./mondrians_bg.wasm');
+        input = './mondrians_bg.wasm';
     }
     const imports = getImports();
 
