@@ -1,4 +1,4 @@
-wasm-pack build --target no-modules --mode no-install --no-typescript --release
+wasm-pack build --target no-modules --no-typescript --release
 mkdir deploy
 HASH=$(git rev-parse --short HEAD)
 mkdir deploy/$HASH
