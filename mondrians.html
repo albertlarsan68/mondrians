@@ -10,7 +10,7 @@
 
 <body>
   <form autocomplete="off">
-    <label for="seed">Graine: </label><input type="text" name="seed" id="seed"><br>
+    <label for="seed">Graine: </label><input type="text" name="seed" id="seed"><button id="randomFill" value="Générer une graine aléatoire"><br>
     <label for="width">Largeur: </label><input type="number" name="width" id="width" min="10" max="5000"
       value="1920"><br>
     <label for="height">Hauteur: </label><input type="number" name="height" id="height" min="10" max="5000"
@@ -33,6 +33,8 @@
     const form = document.querySelector("form");
     const output = document.querySelector("img#output");
     const status = document.querySelector("input#generate");
+    const ramdomFill = document.querySelector("button#randomFill");
+    const seed = document.querySelector("input#seed");
     var generating = false;
     var toGenerate = null;
     var erroring = false;
@@ -68,6 +70,24 @@
     
     worker.onerror = workerOnError;
     worker.onmessage = workerOnMessage;
+    
+    randomFill.onclick = (e) => {
+      const random = (length = 8) => {
+    // Declare all characters
+    let chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+
+    // Pick characers randomly
+    let str = '';
+    for (let i = 0; i < length; i++) {
+        str += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+
+    return str;
+
+};
+      seed.value = random();
+      
+    };
 
     form.onsubmit = (e) => {
       e.preventDefault();
