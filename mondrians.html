@@ -81,6 +81,9 @@
     }
 
     function main() {
+      if !(form.checkValidity) {
+        return;
+      }
       status.disabled = true;
       status.value = "Génération en cours...";
       generate(Uint8Array.from(document.getElementById("seed").value), Number.parseInt(document.getElementById("width").value), Number.parseInt(document.getElementById("height").value), Number.parseInt(document.getElementById("max-depth").value), Number.parseInt(document.getElementById("sep-width").value), Number.parseInt(document.getElementById("min-middle").value), Number.parseInt(document.getElementById("max-middle").value));
