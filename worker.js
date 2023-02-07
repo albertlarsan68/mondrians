@@ -150,6 +150,7 @@ function make_it(data) {
     if (data.reInit === true) {
         setTimeout(() => {init().then(() => { inited = true; console.debug("Wasm Reloaded!"); })}, 1);
         inited = false;
+        return;
     }
     if (!inited) { setTimeout(make_it, 10, data); return; }
     console.debug("Start Generating");
