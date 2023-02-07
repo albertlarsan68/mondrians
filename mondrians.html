@@ -46,6 +46,8 @@
       status.disabled = false;
       status.value = "Erreur lors de la génération, modifiez les paramètres et réessayez";
       erroring = true;
+      generate = null;
+      generating = false;
       worker.terminate();
       setTimeout(() => {worker = new Worker("worker.js"); worker.onerror = workerOnError; worker.onmessage = workerOnMessage; erroring = false;}, 1);
       throw error;
