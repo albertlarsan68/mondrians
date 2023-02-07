@@ -1,0 +1,18 @@
+[package]
+name = "mondrians"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+ahash = { version = "0.8.3", default-features = false, features = ["no-rng"] }
+base64 = { version = "0.21.0", default-features = false, features = ["std"] }
+image = { version = "0.24.5", default-features = false, features = ["png"] }
+rand = { version = "0.8.5", default-features = false, features = ["std_rng"] }
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[target.wasm32-unknown-unknown.dependencies]
+wasm-bindgen = "0.2.84"
