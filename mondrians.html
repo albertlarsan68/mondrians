@@ -43,8 +43,8 @@
     worker.onerror = (error) => {
       console.log(`Worker error: ${error.message}`);
       status.disabled = true;
-      status.value = "Erreur lors de la génération, rechargement de la page...";
-      setTimeout(() => {document.location = document.location;}, 10000);
+      status.value = "Erreur lors de la génération, rechargement ...";
+      worker.postMessage({ reInit = true});
       throw error;
     };
 
