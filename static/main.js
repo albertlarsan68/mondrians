@@ -53,7 +53,7 @@ randomFill.onclick = (e) => {
 
     };
     seed.value = random();
-
+    main();
 };
 
 form.onsubmit = (e) => {

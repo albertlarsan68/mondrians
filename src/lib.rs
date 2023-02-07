@@ -179,28 +179,32 @@ fn generate_part_on_y(
         end_top..start_bottom,
         Color { r: 0, g: 0, b: 0 },
     );
-    generate_part_on_x(
-        canvas,
-        rng,
-        max_depth - 1,
-        x_range.clone(),
-        y_range.start..end_top,
-        sep_width,
-        min_middle,
-        max_middle,
-        colors,
-    );
-    generate_part_on_x(
-        canvas,
-        rng,
-        max_depth - 1,
-        x_range,
-        start_bottom..y_range.end,
-        sep_width,
-        min_middle,
-        max_middle,
-        colors,
-    );
+    if y_range.start < end_top {
+        generate_part_on_x(
+            canvas,
+            rng,
+            max_depth - 1,
+            x_range.clone(),
+            y_range.start..end_top,
+            sep_width,
+            min_middle,
+            max_middle,
+            colors,
+        );
+    }
+    if start_bottom < y_range.end {
+        generate_part_on_x(
+            canvas,
+            rng,
+            max_depth - 1,
+            x_range,
+            start_bottom..y_range.end,
+            sep_width,
+            min_middle,
+            max_middle,
+            colors,
+        );
+    }
 }
 
 fn generate_part_on_x(
@@ -227,26 +231,30 @@ fn generate_part_on_x(
         y_range.clone(),
         Color { r: 0, g: 0, b: 0 },
     );
-    generate_part_on_y(
-        canvas,
-        rng,
-        max_depth - 1,
-        x_range.start..end_left,
-        y_range.clone(),
-        sep_width,
-        min_middle,
-        max_middle,
-        colors,
-    );
-    generate_part_on_y(
-        canvas,
-        rng,
-        max_depth - 1,
-        start_right..x_range.end,
-        y_range,
-        sep_width,
-        min_middle,
-        max_middle,
-        colors,
-    );
+    if x_range.start < end_left {
+        generate_part_on_y(
+            canvas,
+            rng,
+            max_depth - 1,
+            x_range.start..end_left,
+            y_range.clone(),
+            sep_width,
+            min_middle,
+            max_middle,
+            colors,
+        );
+    }
+    if start_right < x_range.end {
+        generate_part_on_y(
+            canvas,
+            rng,
+            max_depth - 1,
+            start_right..x_range.end,
+            y_range,
+            sep_width,
+            min_middle,
+            max_middle,
+            colors,
+        );
+    }
 }
