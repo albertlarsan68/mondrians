@@ -1,5 +1,5 @@
 use std::{
-    hash::{BuildHasher, Hash, Hasher},
+    hash::{BuildHasher, Hasher},
     mem::ManuallyDrop,
     ops::{Bound, RangeBounds},
 };
@@ -120,8 +120,9 @@ pub fn generate(
     min_middle: u32,
     max_middle: u32,
 ) -> String {
-    let mut hasher = ahash::RandomState::with_seeds(1, 2, 3, 4).build_hasher();
-    seed.hash(&mut hasher);
+    #[allow(clippy::zero_prefixed_literal)]
+    let mut hasher = ahash::RandomState::with_seeds(22, 07, 20, 05).build_hasher();
+    hasher.write(seed);
     let seed = hasher.finish();
     let mut rng = rand::rngs::StdRng::seed_from_u64(seed);
 
