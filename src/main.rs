@@ -2,8 +2,8 @@ use std::io::Cursor;
 
 use mondrians::generate;
 
-const WIDTH: u32 = 100;
-const HEIGHT: u32 = 100;
+const WIDTH: u32 = 1920;
+const HEIGHT: u32 = 1080;
 const SEP_WIDTH: u32 = 5;
 const MAX_DEPTH: u32 = 5;
 const MIN_MIDDLE: u32 = 20;

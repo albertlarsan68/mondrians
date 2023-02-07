@@ -88,8 +88,8 @@ impl Canvas {
             Bound::Excluded(x) => x + 1,
             Bound::Unbounded => 0,
         }..match x.end_bound() {
-            Bound::Included(x) => x + 1,
-            Bound::Excluded(x) => *x,
+            Bound::Included(x) => (x + 1).min(self.width),
+            Bound::Excluded(x) => (*x).min(self.width),
             Bound::Unbounded => self.width,
         };
         let y = match y.start_bound() {
@@ -97,8 +97,8 @@ impl Canvas {
             Bound::Excluded(y) => y + 1,
             Bound::Unbounded => 0,
         }..match y.end_bound() {
-            Bound::Included(y) => y + 1,
-            Bound::Excluded(y) => *y,
+            Bound::Included(y) => (y + 1).min(self.height),
+            Bound::Excluded(y) => (*y).min(self.height),
             Bound::Unbounded => self.height,
         };
         for row in y {
