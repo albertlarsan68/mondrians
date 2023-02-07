@@ -12,14 +12,14 @@
   <form autocomplete="off">
     <label for="seed">Graine: </label><input type="text" name="seed" id="seed">
     <button id="randomFill" type="button">Générer une graine aléatoire</button><br>
-    <label for="width">Largeur: </label><input type="number" name="width" id="width" min="1"
+    <label for="width">Largeur: </label><input type="number" name="width" id="width" min="1" max="4294967295"
       value="1920"><br>
-    <label for="height">Hauteur: </label><input type="number" name="height" id="height" min="1"
+    <label for="height">Hauteur: </label><input type="number" name="height" id="height" min="1" max="4294967295"
       value="1080"><br>
     <label for="sep-width">Largeur des séparateurs: </label><input type="number" name="sep-width" id="sep-width" min="1"
-      value="5"><br>
+      max="4294967295" value="5"><br>
     <label for="max-depth">Profondeur maximale: </label><input type="number" name="max-depth" id="max-depth" min="1"
-       value="5"><br>
+      max="4294967295" value="5"><br>
     <label for="min-middle">Millieu minimum: </label><input type="number" name="min-middle" id="min-middle" min="0"
       max="100" value="20"><br>
     <label for="max-middle">Millieu maximum: </label><input type="number" name="max-middle" id="max-middle" min="0"
