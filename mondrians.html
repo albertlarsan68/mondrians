@@ -81,7 +81,7 @@
     }
 
     function main() {
-      if (!form.checkValidity) {
+      if (!form.checkValidity()) {
         return;
       }
       status.disabled = true;
