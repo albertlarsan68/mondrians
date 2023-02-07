@@ -172,8 +172,8 @@ fn generate_part_on_y(
     }
     let middle_percent = rng.gen_range(min_middle..max_middle);
     let middle_pixel = y_range.start + (y_range.end - y_range.start) * middle_percent / 100;
-    let end_top = middle_pixel - sep_width;
-    let start_bottom = middle_pixel + sep_width;
+    let end_top = middle_pixel.saturating_sub(sep_width).max(y_range.start);
+    let start_bottom = middle_pixel.saturating_add(sep_width).min(y_range.end);
     canvas.paint(
         x_range.clone(),
         end_top..start_bottom,
@@ -224,8 +224,8 @@ fn generate_part_on_x(
     }
     let middle_percent = rng.gen_range(min_middle..max_middle);
     let middle_pixel = x_range.start + (x_range.end - x_range.start) * middle_percent / 100;
-    let end_left = middle_pixel - sep_width;
-    let start_right = middle_pixel + sep_width;
+    let end_left = middle_pixel.saturating_sub(sep_width).max(x_range.start);
+    let start_right = middle_pixel.saturating_add(sep_width).min(x_range.end);
     canvas.paint(
         end_left..start_right,
         y_range.clone(),
