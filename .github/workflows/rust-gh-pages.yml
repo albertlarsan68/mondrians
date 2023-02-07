@@ -27,7 +27,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Install Rust
-        uses: actions-rs/toolchain@1
+        uses: actions-rs/toolchain@v1
         with:
           toolchain: beta
           default: true
