@@ -127,7 +127,7 @@ function initSync(module) {
 
 async function init(input) {
     if (typeof input === 'undefined') {
-        input = new URL('./mondrians_bg.wasm');
+        input = './mondrians_bg.wasm';
     }
     const imports = getImports();
 
@@ -147,6 +147,11 @@ var inited = false;
 init().then(() => { inited = true; console.debug("Wasm Loaded!"); })
 
 function make_it(data) {
+    if (data.reInit === true) {
+        setTimeout(() => {init().then(() => { inited = true; console.debug("Wasm Reloaded!"); })}, 1);
+        inited = false;
+        return;
+    }
     if (!inited) { setTimeout(make_it, 10, data); return; }
     console.debug("Start Generating");
     console.time("Generating");

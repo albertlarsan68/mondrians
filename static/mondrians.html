@@ -9,19 +9,20 @@
 </head>
 
 <body>
-  <form>
-    <label for="seed">Graine: </label><input type="text" name="seed" id="seed"><br>
+  <form autocomplete="off">
+    <label for="seed">Graine: </label><input type="text" name="seed" id="seed">
+    <button id="randomFill">Générer une graine aléatoire</button><br>
     <label for="width">Largeur: </label><input type="number" name="width" id="width" min="10" max="5000"
       value="1920"><br>
     <label for="height">Hauteur: </label><input type="number" name="height" id="height" min="10" max="5000"
       value="1080"><br>
-    <label for="sep-width">Largeur des séparateurs</label><input type="number" name="sep-width" id="sep-width" min="1"
+    <label for="sep-width">Largeur des séparateurs: </label><input type="number" name="sep-width" id="sep-width" min="1"
       max="100" value="5"><br>
-    <label for="max-depth">Profondeur maximale</label><input type="number" name="max-depth" id="max-depth" min="1"
+    <label for="max-depth">Profondeur maximale: </label><input type="number" name="max-depth" id="max-depth" min="1"
       max="10" value="5"><br>
-    <label for="min-middle">Millieu minimum</label><input type="number" name="min-middle" id="min-middle" min="1"
+    <label for="min-middle">Millieu minimum: </label><input type="number" name="min-middle" id="min-middle" min="1"
       max="100" value="20"><br>
-    <label for="max-middle">Millieu maximum</label><input type="number" name="max-middle" id="max-middle" min="1"
+    <label for="max-middle">Millieu maximum: </label><input type="number" name="max-middle" id="max-middle" min="1"
       max="100" value="80"><br>
     <input type="submit" value="Générer" id="generate">
   </form>
@@ -33,19 +34,29 @@
     const form = document.querySelector("form");
     const output = document.querySelector("img#output");
     const status = document.querySelector("input#generate");
+    const ramdomFill = document.querySelector("button#randomFill");
+    const seed = document.querySelector("input#seed");
     var generating = false;
     var toGenerate = null;
+    var erroring = false;
     status.disabled = true;
     status.value = "Chargement en cours...";
 
-    const worker = new Worker("worker.js");
+    var worker = new Worker("worker.js");
 
-    worker.onerror = (error) => {
+    function workerOnError(error) {
       console.log(`Worker error: ${error.message}`);
+      status.disabled = false;
+      status.value = "Erreur lors de la génération, modifiez les paramètres et réessayez";
+      erroring = true;
+      toGenerate = null;
+      generating = false;
+      worker.terminate();
+      setTimeout(() => { worker = new Worker("worker.js"); worker.onerror = workerOnError; worker.onmessage = workerOnMessage; erroring = false; }, 1);
       throw error;
-    };
+    }
 
-    worker.onmessage = (event) => {
+    function workerOnMessage(event) {
       if (toGenerate != null) {
         worker.postMessage(toGenerate);
         toGenerate = null;
@@ -56,6 +67,27 @@
       }
       output.src = ("data:image/png;base64," + event.data.data);
       output.hidden = false;
+    };
+
+    worker.onerror = workerOnError;
+    worker.onmessage = workerOnMessage;
+
+    randomFill.onclick = (e) => {
+      const random = (length = 8) => {
+        // Declare all characters
+        let chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+
+        // Pick characers randomly
+        let str = '';
+        for (let i = 0; i < length; i++) {
+          str += chars.charAt(Math.floor(Math.random() * chars.length));
+        }
+
+        return str;
+
+      };
+      seed.value = random();
+
     };
 
     form.onsubmit = (e) => {
@@ -78,6 +110,12 @@
     }
 
     function main() {
+      if (!form.checkValidity()) {
+        return;
+      }
+      if (erroring) {
+        setTimeout(main, 10);
+      }
       status.disabled = true;
       status.value = "Génération en cours...";
       generate(Uint8Array.from(document.getElementById("seed").value), Number.parseInt(document.getElementById("width").value), Number.parseInt(document.getElementById("height").value), Number.parseInt(document.getElementById("max-depth").value), Number.parseInt(document.getElementById("sep-width").value), Number.parseInt(document.getElementById("min-middle").value), Number.parseInt(document.getElementById("max-middle").value));
