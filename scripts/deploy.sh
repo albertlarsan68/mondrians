@@ -1,4 +1,3 @@
-cargo install wasm-pack
 wasm-pack build --target no-modules --mode no-install --no-typescript --release
 mkdir deploy
 HASH=$(git rev-parse --short HEAD)
