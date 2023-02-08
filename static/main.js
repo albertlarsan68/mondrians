@@ -88,3 +88,4 @@ function main() {
 }
 
 main()
+submitButton.value = "Chargement en cours...";
