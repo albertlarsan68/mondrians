@@ -39,7 +39,7 @@ worker.onerror = workerOnError;
 worker.onmessage = workerOnMessage;
 
 randomFill.onclick = (e) => {
-    const random = (length = 8) => {
+    const random = (length = 20) => {
         // Declare all characters
         let chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 
