@@ -22,10 +22,10 @@ For each half:
 - You have a one over `max depth` + 5 chance of stopping there, and filling your part with a random color chosen between White, Red, Yellow or Blue.
 - Choose a middle point between `min middle` and `max middle` in the Y axis.  
 - Create a black line through the whole half's width, between your chosen middle point - `sep width` and your chosen middle point + `sep width`.
-- Reduce `max width` by one
+- Reduce `max depth` by one
 - For each half half:
   - You have a one over `max depth` + 5 chance of stopping there, and filling your part with a random color chosen between White, Red, Yellow or Blue.
-  - Choose a middle point between `min middle` and `max middle` in the Y axis.  
+  - Choose a middle point between `min middle` and `max middle` in the x axis.  
   - Create a black line through the whole half's width, between your chosen middle point - `sep width` and your chosen middle point + `sep width`.
-  - Reduce `max width` by one
-  - Repeat until `max width` is 0.
+  - Reduce `max depth` by one
+  - Repeat until `max depth` is 0.
