@@ -1,5 +1,10 @@
 # mondrians
 
+![GitHub deployments](https://img.shields.io/github/deployments/albertlarsan68/mondrians/github-pages?label=deployment)
+![GitHub](https://img.shields.io/github/license/albertlarsan68/mondrians)
+![GitHub Sponsors](https://img.shields.io/github/sponsors/albertlarsan68?logo=github)
+![Liberapay patrons](https://img.shields.io/liberapay/patrons/AlbertLarsan68?logo=liberapay)
+
 ![example](https://user-images.githubusercontent.com/74931857/217534598-3b2e41ae-bc26-4f00-9968-f6ea716de653.png)
 
 Generates uniquely deterministic images, in the style of Mondrian.
