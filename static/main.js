@@ -9,7 +9,7 @@ var erroring = false;
 submitButton.disabled = true;
 submitButton.value = "Chargement en cours...";
 
-var worker = new Worker("{hash}/worker.js", { type: "module" });
+var worker = new Worker("{hash}/worker.js", { type: "module", name: "Image generator (wasm)" });
 
 function workerOnError(error) {
     console.log(`Worker error: ${error.message}`);
@@ -18,7 +18,7 @@ function workerOnError(error) {
     erroring = true;
     toGenerate = null;
     generating = false;
-    setTimeout(() => { worker.terminate(); worker = new Worker("{hash}/worker.js", { type: "module" }); worker.onerror = workerOnError; worker.onmessage = workerOnMessage; erroring = false; }, 1);
+    setTimeout(() => { worker.terminate(); worker = new Worker("{hash}/worker.js", { type: "module", name: "Image generator (wasm)" }); worker.onerror = workerOnError; worker.onmessage = workerOnMessage; erroring = false; }, 1);
     throw error;
 }
 
