@@ -1,4 +1,3 @@
-cargo install wasm-pack
 wasm-pack build --target web --no-typescript --release
 mkdir deploy || true
 rm -rf deploy/* 
