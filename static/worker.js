@@ -5,7 +5,7 @@ var inited = false;
 init().then(() => { inited = true; console.debug("Wasm Loaded!"); });
 
 function make_it(data) {
-    if (!inited) { setTimeout(make_it, 10, data); return; }
+    if (!inited) { setTimeout(make_it, 1, data); return; }
     console.debug("Start Generating", data);
     console.time("Generating");
     let response = generate(data.seed, data.width, data.height, data.max_depth, data.sep_width, data.min_middle, data.max_middle);
