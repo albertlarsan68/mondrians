@@ -151,7 +151,7 @@ pub fn generate(
     let mut img_out =
         base64::write::EncoderStringWriter::new(&base64::engine::general_purpose::STANDARD);
     image::codecs::png::PngEncoder::new(&mut img_out)
-        .write_image(&buffer, width, height, image::ColorType::Rgb8)
+        .write_image(&buffer, width, height, image::ExtendedColorType::Rgb8)
         .unwrap();
     img_out.into_inner()
 }
