@@ -15,7 +15,7 @@ publish = false
 ahash = { version = "0.8.11", default-features = false, features = ["no-rng"] }
 base64 = { version = "0.22.1", default-features = false, features = ["std"] }
 image = { version = "0.25.5", default-features = false, features = ["png"] }
-rand = { version = "0.8.5", default-features = false, features = ["std_rng"] }
+rand = { version = "0.9.1", default-features = false, features = ["std_rng"] }
 
 [lib]
 crate-type = ["cdylib", "rlib"]
